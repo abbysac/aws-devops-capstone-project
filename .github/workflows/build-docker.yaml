@@ -22,3 +22,11 @@ jobs:
           docker login -u rishabkumar7 -p ${{ secrets.DOCKER_HUB_TOKEN }}
           docker push rishabkumar7/devops-qr-code-backend:latest
           docker push rishabkumar7/devops-qr-code-frontend:latest
+        # Create a temporary directory for JAR files
+      - name: Create temporary directory
+        run: mkdir -p ./app
+
+      # Download JAR files from S3
+      - name: Download JAR files from S3
+        run: aws s3 cp s3://cca670-tickitdb/jar ./app/jar
+        # For multiple JARs, use: aws s3 cp s3://your-bucket-name/ ./app/ --recursive --include "*.jar"
